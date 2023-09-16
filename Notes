@@ -1,0 +1,916 @@
+oclabs:~/environment $ git clone https://github.com/AlbusDumble-dore/DevOps_Microservices.git
+Cloning into 'DevOps_Microservices'...
+remote: Enumerating objects: 246, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 246 (delta 0), reused 4 (delta 0), pack-reused 237
+Receiving objects: 100% (246/246), 36.60 MiB | 17.26 MiB/s, done.
+Resolving deltas: 100% (66/66), done.
+Updating files: 100% (91/91), done.
+voclabs:~/environment $ cd DevOps_Microservices/project-ml-microservice-kubernetes/
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube
+bash: minikube: command not found
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 82.4M  100 82.4M    0     0   133M      0 --:--:-- --:--:-- --:--:--  133M
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo install minikube-linux-amd64 /usr/local/bin/minikube
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start
+* minikube v1.31.2 on Amazon 2
+* Automatically selected the docker driver. Other choices: ssh, none
+
+X The requested memory allocation of 1942MiB does not leave room for system overhead (total system memory: 1942MiB). You may face stability issues.
+* Suggestion: Start minikube with less memory allocated: 'minikube start --memory=1942mb'
+
+* Using Docker driver with root privileges
+* Starting control plane node minikube in cluster minikube
+* Pulling base image ...
+* Downloading Kubernetes v1.27.4 preload ...
+    > preloaded-images-k8s-v18-v1...:  393.21 MiB / 393.21 MiB  100.00% 205.27 
+    > gcr.io/k8s-minikube/kicbase...:  447.62 MiB / 447.62 MiB  100.00% 81.29 M
+* Creating docker container (CPUs=2, Memory=1942MB) ...
+
+X Docker is nearly out of disk space, which may cause deployments to fail! (95% of capacity). You can pass '--force' to skip this check.
+* Suggestion: 
+
+    Try one or more of the following to free up space on the device:
+    
+    1. Run "docker system prune" to remove unused Docker data (optionally with "-a")
+    2. Increase the storage allocated to Docker for Desktop by clicking on:
+    Docker icon > Preferences > Resources > Disk Image Size
+    3. Run "minikube ssh -- docker system prune" if using the Docker container runtime
+* Related issue: https://github.com/kubernetes/minikube/issues/9024
+
+* Preparing Kubernetes v1.27.4 on Docker 24.0.4 ...
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Configuring bridge CNI (Container Networking Interface) ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: storage-provisioner
+* kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ kubectl config view
+bash: kubectl: command not found
+voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube kubectl config view               
+    > kubectl.sha256:  64 B / 64 B [-------------------------] 100.00% ? p/s 0s
+    > kubectl:  46.98 MiB / 46.98 MiB [------------] 100.00% 3.79 GiB p/s 200ms
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /home/ec2-user/.minikube/ca.crt
+    extensions:
+    - extension:
+        last-update: Sat, 16 Sep 2023 12:43:25 UTC
+        provider: minikube.sigs.k8s.io
+        version: v1.31.2
+      name: cluster_info
+    server: https://192.168.49.2:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Sat, 16 Sep 2023 12:43:25 UTC
+        provider: minikube.sigs.k8s.io
+        version: v1.31.2
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /home/ec2-user/.minikube/profiles/minikube/client.crt
+    client-key: /home/ec2-user/.minikube/profiles/minikube/client.key
+
+-----------------------------------------
+
+LOGS Successfully installed pip-23.2.1
+Collecting Click==7.0 (from -r requirements.txt (line 1))
+  Downloading Click-7.0-py2.py3-none-any.whl (81 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.3/81.3 kB 8.8 MB/s eta 0:00:00
+Collecting Flask==1.0.2 (from -r requirements.txt (line 2))
+  Downloading Flask-1.0.2-py2.py3-none-any.whl (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.4/91.4 kB 16.5 MB/s eta 0:00:00
+Collecting itsdangerous==1.1.0 (from -r requirements.txt (line 3))
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Jinja2==2.10.3 (from -r requirements.txt (line 4))
+  Downloading Jinja2-2.10.3-py2.py3-none-any.whl (125 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.3/125.3 kB 23.7 MB/s eta 0:00:00
+Collecting MarkupSafe==1.1.1 (from -r requirements.txt (line 5))
+  Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl (33 kB)
+Collecting numpy==1.17.2 (from -r requirements.txt (line 6))
+  Downloading numpy-1.17.2-cp37-cp37m-manylinux1_x86_64.whl (20.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.3/20.3 MB 24.7 MB/s eta 0:00:00
+Collecting pandas==0.24.2 (from -r requirements.txt (line 7))
+  Downloading pandas-0.24.2-cp37-cp37m-manylinux1_x86_64.whl (10.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 64.1 MB/s eta 0:00:00
+Collecting python-dateutil==2.8.0 (from -r requirements.txt (line 8))
+  Downloading python_dateutil-2.8.0-py2.py3-none-any.whl (226 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.8/226.8 kB 30.6 MB/s eta 0:00:00
+Collecting pytz==2019.3 (from -r requirements.txt (line 9))
+  Downloading pytz-2019.3-py2.py3-none-any.whl (509 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 kB 53.7 MB/s eta 0:00:00
+Collecting scikit-learn==0.20.3 (from -r requirements.txt (line 10))
+  Downloading scikit_learn-0.20.3-cp37-cp37m-manylinux1_x86_64.whl (5.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 63.4 MB/s eta 0:00:00
+Collecting scipy==1.3.1 (from -r requirements.txt (line 11))
+  Downloading scipy-1.3.1-cp37-cp37m-manylinux1_x86_64.whl (25.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 25.2/25.2 MB 37.4 MB/s eta 0:00:00
+Collecting six==1.12.0 (from -r requirements.txt (line 12))
+  Downloading six-1.12.0-py2.py3-none-any.whl (10 kB)
+Collecting Werkzeug==0.16.0 (from -r requirements.txt (line 13))
+  Downloading Werkzeug-0.16.0-py2.py3-none-any.whl (327 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 327.3/327.3 kB 45.8 MB/s eta 0:00:00
+Collecting pylint==2.4.4 (from -r requirements.txt (line 14))
+  Downloading pylint-2.4.4-py3-none-any.whl (302 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 303.0/303.0 kB 45.1 MB/s eta 0:00:00
+Collecting astroid<2.4,>=2.3.0 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading astroid-2.3.3-py3-none-any.whl (205 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 205.7/205.7 kB 34.6 MB/s eta 0:00:00
+Collecting isort<5,>=4.2.5 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading isort-4.3.21-py2.py3-none-any.whl (42 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.3/42.3 kB 7.8 MB/s eta 0:00:00
+Collecting mccabe<0.7,>=0.6 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting lazy-object-proxy==1.4.* (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading lazy_object_proxy-1.4.3-cp37-cp37m-manylinux1_x86_64.whl (56 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 kB 12.5 MB/s eta 0:00:00
+Collecting wrapt==1.11.* (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading wrapt-1.11.2.tar.gz (27 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting typed-ast<1.5,>=1.4.0 (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading typed_ast-1.4.3-cp37-cp37m-manylinux1_x86_64.whl (743 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 743.4/743.4 kB 62.0 MB/s eta 0:00:00
+Building wheels for collected packages: wrapt
+  Building wheel for wrapt (setup.py): started
+  Building wheel for wrapt (setup.py): finished with status 'done'
+  Created wheel for wrapt: filename=wrapt-1.11.2-cp37-cp37m-linux_x86_64.whl size=71340 sha256=204f95d4542c69f799d7e06721e7810487e9c577b7bdd1969c0d77f0302102a2
+  Stored in directory: /root/.cache/pip/wheels/23/5f/62/304b411f20be41821465a82bc98baabc5e68c3cdd1eb99db71
+Successfully built wrapt
+DEPRECATION: pandas 0.24.2 has a non-standard dependency specifier pytz>=2011k. pip 23.3 will enforce this behaviour change. A possible replacement is to upgrade to a newer version of pandas or contact the author to suggest that they release a version with a conforming dependency specifiers. Discussion can be found at https://github.com/pypa/pip/issues/12063
+Installing collected packages: wrapt, typed-ast, pytz, mccabe, Werkzeug, six, numpy, MarkupSafe, lazy-object-proxy, itsdangerous, isort, Click, scipy, python-dateutil, Jinja2, astroid, scikit-learn, pylint, pandas, Flask
+Successfully installed Click-7.0 Flask-1.0.2 Jinja2-2.10.3 MarkupSafe-1.1.1 Werkzeug-0.16.0 astroid-2.3.3 isort-4.3.21 itsdangerous-1.1.0 lazy-object-proxy-1.4.3 mccabe-0.6.1 numpy-1.17.2 pandas-0.24.2 pylint-2.4.4 python-dateutil-2.8.0 pytz-2019.3 scikit-learn-0.20.3 scipy-1.3.1 six-1.12.0 typed-ast-1.4.3 wrapt-1.11.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Removing intermediate container 4298029dd8ba
+ ---> b065a4fd4533
+Step 5/6 : EXPOSE 80
+ ---> Running in 07cb7d8f9786
+Removing intermediate container 07cb7d8f9786
+ ---> adb2f4208659
+Step 6/6 : CMD ["python","app.py"]
+ ---> Running in 23519320ba96
+Removing intermediate container 23519320ba96
+ ---> 3d4c2f521c20
+Successfully built 3d4c2f521c20
+Successfully tagged proj4:latest
+REPOSITORY   TAG             IMAGE ID       CREATED                  SIZE
+proj4        latest          3d4c2f521c20   Less than a second ago   1.34GB
+<none>       <none>          a3d04cc5a1de   9 minutes ago            1.34GB
+python       3.7.3-stretch   34a518642c76   4 years ago              929MB
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 107-355-506
+[2023-09-16 11:37:12,279] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2023-09-16 11:37:12,307] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2023-09-16 11:37:12,331] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+172.17.0.1 - - [16/Sep/2023 11:37:12] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [16/Sep/2023 11:37:12] "POST /predict HTTP/1.1" 200 -
+^C(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ ./run_docker.sh 
+Sending build context to Docker daemon  87.19MB
+Step 1/6 : FROM python:3.7.3-stretch
+ ---> 34a518642c76
+Step 2/6 : WORKDIR /app
+ ---> Using cache
+ ---> bf63bcdd8365
+Step 3/6 : COPY . app.py /app/
+ ---> e51b8bfacffb
+Step 4/6 : RUN pip install --upgrade pip &&    pip install --trusted-host pypi.python.org -r requirements.txt
+ ---> Running in 0e3d9e36d03f
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/50/c2/e06851e8cc28dcad7c155f4753da8833ac06a5c704c109313b8d5a62968a/pip-23.2.1-py3-none-any.whl (2.1MB)
+Installing collected packages: pip
+  Found existing installation: pip 19.1.1
+    Uninstalling pip-19.1.1:
+      Successfully uninstalled pip-19.1.1
+Successfully installed pip-23.2.1
+Collecting Click==7.0 (from -r requirements.txt (line 1))
+  Downloading Click-7.0-py2.py3-none-any.whl (81 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 81.3/81.3 kB 16.9 MB/s eta 0:00:00
+Collecting Flask==1.0.2 (from -r requirements.txt (line 2))
+  Downloading Flask-1.0.2-py2.py3-none-any.whl (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.4/91.4 kB 14.6 MB/s eta 0:00:00
+Collecting itsdangerous==1.1.0 (from -r requirements.txt (line 3))
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Jinja2==2.10.3 (from -r requirements.txt (line 4))
+  Downloading Jinja2-2.10.3-py2.py3-none-any.whl (125 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.3/125.3 kB 25.7 MB/s eta 0:00:00
+Collecting MarkupSafe==1.1.1 (from -r requirements.txt (line 5))
+  Downloading MarkupSafe-1.1.1-cp37-cp37m-manylinux2010_x86_64.whl (33 kB)
+Collecting numpy==1.17.2 (from -r requirements.txt (line 6))
+  Downloading numpy-1.17.2-cp37-cp37m-manylinux1_x86_64.whl (20.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.3/20.3 MB 13.6 MB/s eta 0:00:00
+Collecting pandas==0.24.2 (from -r requirements.txt (line 7))
+  Downloading pandas-0.24.2-cp37-cp37m-manylinux1_x86_64.whl (10.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 63.2 MB/s eta 0:00:00
+Collecting python-dateutil==2.8.0 (from -r requirements.txt (line 8))
+  Downloading python_dateutil-2.8.0-py2.py3-none-any.whl (226 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.8/226.8 kB 38.0 MB/s eta 0:00:00
+Collecting pytz==2019.3 (from -r requirements.txt (line 9))
+  Downloading pytz-2019.3-py2.py3-none-any.whl (509 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 kB 45.4 MB/s eta 0:00:00
+Collecting scikit-learn==0.20.3 (from -r requirements.txt (line 10))
+  Downloading scikit_learn-0.20.3-cp37-cp37m-manylinux1_x86_64.whl (5.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 64.3 MB/s eta 0:00:00
+Collecting scipy==1.3.1 (from -r requirements.txt (line 11))
+  Downloading scipy-1.3.1-cp37-cp37m-manylinux1_x86_64.whl (25.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 25.2/25.2 MB 29.4 MB/s eta 0:00:00
+Collecting six==1.12.0 (from -r requirements.txt (line 12))
+  Downloading six-1.12.0-py2.py3-none-any.whl (10 kB)
+Collecting Werkzeug==0.16.0 (from -r requirements.txt (line 13))
+  Downloading Werkzeug-0.16.0-py2.py3-none-any.whl (327 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 327.3/327.3 kB 45.0 MB/s eta 0:00:00
+Collecting pylint==2.4.4 (from -r requirements.txt (line 14))
+  Downloading pylint-2.4.4-py3-none-any.whl (302 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 303.0/303.0 kB 42.8 MB/s eta 0:00:00
+Collecting astroid<2.4,>=2.3.0 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading astroid-2.3.3-py3-none-any.whl (205 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 205.7/205.7 kB 33.6 MB/s eta 0:00:00
+Collecting isort<5,>=4.2.5 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading isort-4.3.21-py2.py3-none-any.whl (42 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.3/42.3 kB 9.0 MB/s eta 0:00:00
+Collecting mccabe<0.7,>=0.6 (from pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting lazy-object-proxy==1.4.* (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading lazy_object_proxy-1.4.3-cp37-cp37m-manylinux1_x86_64.whl (56 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 kB 13.5 MB/s eta 0:00:00
+Collecting wrapt==1.11.* (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading wrapt-1.11.2.tar.gz (27 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting typed-ast<1.5,>=1.4.0 (from astroid<2.4,>=2.3.0->pylint==2.4.4->-r requirements.txt (line 14))
+  Downloading typed_ast-1.4.3-cp37-cp37m-manylinux1_x86_64.whl (743 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 743.4/743.4 kB 61.2 MB/s eta 0:00:00
+Building wheels for collected packages: wrapt
+  Building wheel for wrapt (setup.py): started
+  Building wheel for wrapt (setup.py): finished with status 'done'
+  Created wheel for wrapt: filename=wrapt-1.11.2-cp37-cp37m-linux_x86_64.whl size=71336 sha256=b347d9ecc6f1241ead21d2f4323439603b933081bebb389091984542d61d4910
+  Stored in directory: /root/.cache/pip/wheels/23/5f/62/304b411f20be41821465a82bc98baabc5e68c3cdd1eb99db71
+Successfully built wrapt
+DEPRECATION: pandas 0.24.2 has a non-standard dependency specifier pytz>=2011k. pip 23.3 will enforce this behaviour change. A possible replacement is to upgrade to a newer version of pandas or contact the author to suggest that they release a version with a conforming dependency specifiers. Discussion can be found at https://github.com/pypa/pip/issues/12063
+Installing collected packages: wrapt, typed-ast, pytz, mccabe, Werkzeug, six, numpy, MarkupSafe, lazy-object-proxy, itsdangerous, isort, Click, scipy, python-dateutil, Jinja2, astroid, scikit-learn, pylint, pandas, Flask
+Successfully installed Click-7.0 Flask-1.0.2 Jinja2-2.10.3 MarkupSafe-1.1.1 Werkzeug-0.16.0 astroid-2.3.3 isort-4.3.21 itsdangerous-1.1.0 lazy-object-proxy-1.4.3 mccabe-0.6.1 numpy-1.17.2 pandas-0.24.2 pylint-2.4.4 python-dateutil-2.8.0 pytz-2019.3 scikit-learn-0.20.3 scipy-1.3.1 six-1.12.0 typed-ast-1.4.3 wrapt-1.11.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Removing intermediate container 0e3d9e36d03f
+ ---> aacbbc0abdf7
+Step 5/6 : EXPOSE 80
+ ---> Running in 463a0b8762f5
+Removing intermediate container 463a0b8762f5
+ ---> 8daf4cda0ff3
+Step 6/6 : CMD ["python","app.py"]
+ ---> Running in e04e84ae5f5d
+Removing intermediate container e04e84ae5f5d
+ ---> 1b7a8c9cd97e
+Successfully built 1b7a8c9cd97e
+Successfully tagged proj4:latest
+REPOSITORY   TAG             IMAGE ID       CREATED                  SIZE
+proj4        latest          1b7a8c9cd97e   Less than a second ago   1.34GB
+<none>       <none>          3d4c2f521c20   3 minutes ago            1.34GB
+<none>       <none>          a3d04cc5a1de   13 minutes ago           1.34GB
+python       3.7.3-stretch   34a518642c76   4 years ago              929MB
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 795-734-891
+[2023-09-16 11:40:33,689] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2023-09-16 11:40:33,704] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2023-09-16 11:40:33,716] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2023-09-16 11:40:33,720] INFO in app: ILog the output prediction value: 
+[20.35373177134412]
+172.17.0.1 - - [16/Sep/2023 11:40:33] "POST /predict HTTP/1.1" 200 -
+^C(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc., 0.0.0+unknown)
+
+Server:
+ Containers: 3
+  Running: 0
+  Paused: 0
+  Stopped: 3
+ Images: 14
+ Server Version: 20.10.23
+ Storage Driver: overlay2
+  Backing Filesystem: xfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 1e1ea6e986c6c86565bc33d52e34b81b3e2bc71f
+ runc version: f19387a6bec4944c770f7668ab51c4348d9c2f38
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: default
+ Kernel Version: 4.14.322-244.536.amzn2.x86_64
+ Operating System: Amazon Linux 2
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 1
+ Total Memory: 970.2MiB
+ Name: ip-172-31-25-89.ec2.internal
+ ID: SSGS:I73T:ED4W:SCR7:FLUG:A3NC:E65F:2ULZ:7HFH:WBID:BL7V:C2QH
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ croservices/proje-microservice-ku
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc., 0.0.0+unknown)
+
+Server:
+ Containers: 3
+  Running: 0
+  Paused: 0
+  Stopped: 3
+ Images: 14
+ Server Version: 20.10.23
+ Storage Driver: overlay2
+  Backing Filesystem: xfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runtime.v1.linux runc io.containerd.runc.v2
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 1e1ea6e986c6c86565bc33d52e34b81b3e2bc71f
+ runc version: f19387a6bec4944c770f7668ab51c4348d9c2f38
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: default
+ Kernel Version: 4.14.322-244.536.amzn2.x86_64
+ Operating System: Amazon Linux 2
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 1
+ Total Memory: 970.2MiB
+ Name: ip-172-31-25-89.ec2.internal
+ ID: SSGS:I73T:ED4W:SCR7:FLUG:A3NC:E65F:2ULZ:7HFH:WBID:BL7V:C2QH
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ uplo^C
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ ls
+app.py      Makefile            minikube-linux-amd64  output_txt_files  requirements.txt  run_kubernetes.sh
+Dockerfile  make_prediction.sh  model_data            README.md         run_docker.sh     upload_docker.sh
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ ./upload_docker.sh 
+Docker ID and Image: mukulkmr/proj4
+The push refers to repository [docker.io/mukulkmr/project4]
+tag does not exist: mukulkmr/project4:tagname
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ ./upload_docker.sh 
+Docker ID and Image: mukulkmr/proj4
+The push refers to repository [docker.io/mukulkmr/project4]
+1e7f7cef80c3: Preparing 
+b66602337274: Preparing 
+1671c4915df8: Preparing 
+799a7872c8c7: Preparing 
+715450468940: Preparing 
+c9d608035aef: Waiting 
+bb9c02680a15: Waiting 
+a637c551a0da: Waiting 
+2c8d31157b81: Waiting 
+7b76d801397d: Waiting 
+f32868cde90b: Waiting 
+0db06dff9d9a: Waiting 
+denied: requested access to the resource is denied
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: mukulkmr
+Password: 
+WARNING! Your password will be stored unencrypted in /home/ec2-user/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ ./upload_docker.sh 
+Docker ID and Image: mukulkmr/proj4
+The push refers to repository [docker.io/mukulkmr/project4]
+1e7f7cef80c3: Pushed 
+b66602337274: Pushed 
+1671c4915df8: Pushed 
+799a7872c8c7: Mounted from library/python 
+715450468940: Mounted from library/python 
+c9d608035aef: Mounted from library/python 
+bb9c02680a15: Mounted from library/python 
+a637c551a0da: Mounted from library/python 
+2c8d31157b81: Mounted from library/python 
+7b76d801397d: Mounted from library/python 
+f32868cde90b: Mounted from library/python 
+0db06dff9d9a: Mounted from library/python 
+latest: digest: sha256:0fd9ee75109ac7fc13a6e1f05690e0ac48fabaf32b06b0a2c0bec92d90bf0b54 size: 2850
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start
+* minikube v1.31.2 on Amazon 2 (xen/amd64)
+* Automatically selected the docker driver. Other choices: none, ssh
+
+X Exiting due to RSRC_INSUFFICIENT_CORES: Requested cpu count 2 is greater than the available cpus of 1
+
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ lscpu | grep -i virtualization
+Virtualization type: full
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+bash: $: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+sudo: dnf: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+sudo: dnf: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo apt install VirtualBox
+sudo: apt: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ dpkg -l | grep virtualbox
+bash: dpkg: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox-2016.gpg
+gpg: can't create `/usr/share/keyrings/oracle-virtualbox-2016.gpg': No such file or directory
+gpg: no valid OpenPGP data found.
+gpg: dearmoring failed: No such file or directory
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $  wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O-
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+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
+=Rv7/
+-----END PGP PUBLIC KEY BLOCK-----
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox-2016.gpg
+gpg: can't create `/usr/share/keyrings/oracle-virtualbox-2016.gpg': No such file or directory
+gpg: no valid OpenPGP data found.
+gpg: dearmoring failed: No such file or directory
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo dpkg -i virtualbox-version-number_Ubuntu_xenial_amd64.deb
+sudo: dpkg: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ brew cask install virtualbox
+bash: brew: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start* minikube v1.31.2 on Amazon 2 (xen/amd64)
+* Automatically selected the docker driver. Other choices: ssh, none
+
+X Exiting due to RSRC_INSUFFICIENT_CORES: Requested cpu count 2 is greater than the available cpus of 1
+
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ podman machine stop
+bash: podman: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ podman machine rm
+bash: podman: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start -extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus=1
+Error: unknown shorthand flag: 'e' in -extra-config=kubeadm.ignore-preflight-errors=NumCPU
+See 'minikube start --help' for usage.
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start --help
+Starts a local Kubernetes cluster
+
+Options:
+    --addons=[]:
+        Enable addons. see `minikube addons list` for a list of valid addon names.
+
+    --apiserver-ips=[]:
+        A set of apiserver IP Addresses which are used in the generated certificate for kubernetes.  This can be used
+        if you want to make the apiserver available from outside the machine
+
+    --apiserver-name='minikubeCA':
+        The authoritative apiserver hostname for apiserver certificates and connectivity. This can be used if you want
+        to make the apiserver available from outside the machine
+
+    --apiserver-names=[]:
+        A set of apiserver names which are used in the generated certificate for kubernetes.  This can be used if you
+        want to make the apiserver available from outside the machine
+
+    --apiserver-port=8443:
+        The apiserver listening port
+
+    --auto-update-drivers=true:
+        If set, automatically updates drivers to the latest version. Defaults to true.
+
+
+--base-image='gcr.io/k8s-minikube/kicbase:v0.0.40@sha256:8cadf23777709e43eca447c47a45f5a4635615129267ce025193040ec92a1631':
+        The base image to use for docker/podman drivers. Intended for local development.
+
+    --binary-mirror='':
+        Location to fetch kubectl, kubelet, & kubeadm binaries from.
+
+    --cache-images=true:
+        If true, cache docker images for the current bootstrapper and load them into the machine. Always false with
+        --driver=none.
+
+    --cert-expiration=26280h0m0s:
+        Duration until minikube certificate expiration, defaults to three years (26280h).
+
+    --cni='':
+        CNI plug-in to use. Valid options: auto, bridge, calico, cilium, flannel, kindnet, or path to a CNI manifest
+        (default: auto)
+
+    --container-runtime='':
+        The container runtime to be used. Valid options: docker, cri-o, containerd (default: auto)
+
+    --cpus='2':
+        Number of CPUs allocated to Kubernetes. Use "max" to use the maximum number of CPUs.
+
+    --cri-socket='':
+        The cri socket path to be used.
+
+    --delete-on-failure=false:
+        If set, delete the current cluster if start fails and try again. Defaults to false.
+
+    --disable-driver-mounts=false:
+        Disables the filesystem mounts provided by the hypervisors
+
+    --disable-metrics=false:
+        If set, disables metrics reporting (CPU and memory usage), this can improve CPU usage. Defaults to false.
+
+    --disable-optimizations=false:
+        If set, disables optimizations that are set for local Kubernetes. Including decreasing CoreDNS replicas from 2
+        to 1. Defaults to false.
+
+    --disk-size='20000mb':
+        Disk size allocated to the minikube VM (format: <number>[<unit>], where unit = b, k, m or g).
+
+    --dns-domain='cluster.local':
+        The cluster dns domain name used in the Kubernetes cluster
+
+    --dns-proxy=false:
+        Enable proxy for NAT DNS requests (virtualbox driver only)
+
+    --docker-env=[]:
+        Environment variables to pass to the Docker daemon. (format: key=value)
+
+    --docker-opt=[]:
+        Specify arbitrary flags to pass to the Docker daemon. (format: key=value)
+
+    --download-only=false:
+        If true, only download and cache files for later use - don't install or start anything.
+
+    --driver='':
+        Driver is one of: virtualbox, kvm2, qemu2, qemu, vmware, none, docker, podman, ssh (defaults to auto-detect)
+
+    --dry-run=false:
+        dry-run mode. Validates configuration, but does not mutate system state
+
+    --embed-certs=false:
+        if true, will embed the certs in kubeconfig.
+
+    --enable-default-cni=false:
+        DEPRECATED: Replaced by --cni=bridge
+
+    --extra-config=:
+        A set of key=value pairs that describe configuration that may be passed to different components.                The key
+        should be '.' separated, and the first part before the dot is the component to apply the configuration to.
+        Valid components are: kubelet, kubeadm, apiserver, controller-manager, etcd, proxy, scheduler           Valid kubeadm
+        parameters: ignore-preflight-errors, dry-run, kubeconfig, kubeconfig-dir, node-name, cri-socket,
+        experimental-upload-certs, certificate-key, rootfs, skip-phases, pod-network-cidr
+
+    --extra-disks=0:
+        Number of extra disks created and attached to the minikube VM (currently only implemented for hyperkit, kvm2,
+        and qemu2 drivers)
+
+    --feature-gates='':
+        A set of key=value pairs that describe feature gates for alpha/experimental features.
+
+    --force=false:
+        Force minikube to perform possibly dangerous operations
+
+    --force-systemd=false:
+        If set, force the container runtime to use systemd as cgroup manager. Defaults to false.
+
+    --host-dns-resolver=true:
+        Enable host resolver for NAT DNS requests (virtualbox driver only)
+
+    --host-only-cidr='192.168.59.1/24':
+        The CIDR to be used for the minikube VM (virtualbox driver only)
+
+    --host-only-nic-type='virtio':
+        NIC Type used for host only network. One of Am79C970A, Am79C973, 82540EM, 82543GC, 82545EM, or virtio
+        (virtualbox driver only)
+
+    --hyperkit-vpnkit-sock='':
+        Location of the VPNKit socket used for networking. If empty, disables Hyperkit VPNKitSock, if 'auto' uses
+        Docker for Mac VPNKit connection, otherwise uses the specified VSock (hyperkit driver only)
+
+    --hyperkit-vsock-ports=[]:
+        List of guest VSock ports that should be exposed as sockets on the host (hyperkit driver only)
+
+    --hyperv-external-adapter='':
+        External Adapter on which external switch will be created if no external switch is found. (hyperv driver only)
+
+    --hyperv-use-external-switch=false:
+        Whether to use external switch over Default Switch if virtual switch not explicitly specified. (hyperv driver
+        only)
+
+    --hyperv-virtual-switch='':
+        The hyperv virtual switch name. Defaults to first found. (hyperv driver only)
+
+    --image-mirror-country='':
+        Country code of the image mirror to be used. Leave empty to use the global one. For Chinese mainland users,
+        set it to cn.
+
+    --image-repository='':
+        Alternative image repository to pull docker images from. This can be used when you have limited access to
+        gcr.io. Set it to "auto" to let minikube decide one for you. For Chinese mainland users, you may use local
+        gcr.io mirrors such as registry.cn-hangzhou.aliyuncs.com/google_containers
+
+    --insecure-registry=[]:
+        Insecure Docker registries to pass to the Docker daemon.  The default service CIDR range will automatically be
+        added.
+
+    --install-addons=true:
+        If set, install addons. Defaults to true.
+
+    --interactive=true:
+        Allow user prompts for more information
+
+
+--iso-url=[https://storage.googleapis.com/minikube-builds/iso/16971/minikube-v1.31.0-amd64.iso,https://github.com/kubernetes/minikube/releases/download/v1.31.0/minikube-v1.31.0-amd64.iso,https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.31.0-amd64.iso]:
+        Locations to fetch the minikube ISO from.
+
+    --keep-context=false:
+        This will keep the existing kubectl context and will create a minikube context.
+
+    --kubernetes-version='':
+        The Kubernetes version that the minikube VM will use (ex: v1.2.3, 'stable' for v1.27.4, 'latest' for
+        v1.28.0-rc.1). Defaults to 'stable'.
+
+    --kvm-gpu=false:
+        Enable experimental NVIDIA GPU support in minikube
+
+    --kvm-hidden=false:
+        Hide the hypervisor signature from the guest in minikube (kvm2 driver only)
+
+    --kvm-network='default':
+        The KVM default network name. (kvm2 driver only)
+
+    --kvm-numa-count=1:
+        Simulate numa node count in minikube, supported numa node count range is 1-8 (kvm2 driver only)
+
+    --kvm-qemu-uri='qemu:///system':
+        The KVM QEMU connection URI. (kvm2 driver only)
+
+    --listen-address='':
+        IP Address to use to expose ports (docker and podman driver only)
+
+    --memory='':
+        Amount of RAM to allocate to Kubernetes (format: <number>[<unit>], where unit = b, k, m or g). Use "max" to
+        use the maximum amount of memory.
+
+    --mount=false:
+        This will start the mount daemon and automatically mount files into minikube.
+
+    --mount-9p-version='9p2000.L':
+        Specify the 9p version that the mount should use
+
+    --mount-gid='docker':
+        Default group id used for the mount
+
+    --mount-ip='':
+        Specify the ip that the mount should be setup on
+
+    --mount-msize=262144:
+        The number of bytes to use for 9p packet payload
+
+    --mount-options=[]:
+        Additional mount options, such as cache=fscache
+
+    --mount-port=0:
+        Specify the port that the mount should be setup on, where 0 means any free port.
+
+    --mount-string='/home/ec2-user:/minikube-host':
+        The argument to pass the minikube mount command on start.
+
+    --mount-type='9p':
+        Specify the mount filesystem type (supported types: 9p)
+
+    --mount-uid='docker':
+        Default user id used for the mount
+
+    --namespace='default':
+        The named space to activate after start
+
+    --nat-nic-type='virtio':
+        NIC Type used for nat network. One of Am79C970A, Am79C973, 82540EM, 82543GC, 82545EM, or virtio (virtualbox
+        driver only)
+
+    --native-ssh=true:
+        Use native Golang SSH client (default true). Set to 'false' to use the command line 'ssh' command when
+        accessing the docker machine. Useful for the machine drivers when they will not start with 'Waiting for SSH'.
+
+    --network='':
+        network to run minikube with. Now it is used by docker/podman and KVM drivers. If left empty, minikube will
+        create a new network.
+
+    --network-plugin='':
+        DEPRECATED: Replaced by --cni
+
+    --nfs-share=[]:
+        Local folders to share with Guest via NFS mounts (hyperkit driver only)
+
+    --nfs-shares-root='/nfsshares':
+        Where to root the NFS Shares, defaults to /nfsshares (hyperkit driver only)
+
+    --no-kubernetes=false:
+        If set, minikube VM/container will start without starting or configuring Kubernetes. (only works on new
+        clusters)
+
+    --no-vtx-check=false:
+        Disable checking for the availability of hardware virtualization before the vm is started (virtualbox driver
+        only)
+
+    -n, --nodes=1:
+        The number of nodes to spin up. Defaults to 1.
+
+    -o, --output='text':
+        Format to print stdout in. Options include: [text,json]
+
+    --ports=[]:
+        List of ports that should be exposed (docker and podman driver only)
+
+    --preload=true:
+        If set, download tarball of preloaded images if available to improve start time. Defaults to true.
+
+    --qemu-firmware-path='':
+        Path to the qemu firmware file. Defaults: For Linux, the default firmware location. For macOS, the brew
+        installation location. For Windows, C:\Program Files\qemu\share
+
+    --registry-mirror=[]:
+        Registry mirrors to pass to the Docker daemon
+
+    --service-cluster-ip-range='10.96.0.0/12':
+        The CIDR to be used for service cluster IPs.
+
+    --socket-vmnet-client-path='':
+        Path to the socket vmnet client binary (QEMU driver only)
+
+    --socket-vmnet-path='':
+        Path to socket vmnet binary (QEMU driver only)
+
+    --ssh-ip-address='':
+        IP address (ssh driver only)
+
+    --ssh-key='':
+        SSH key (ssh driver only)
+
+    --ssh-port=22:
+        SSH port (ssh driver only)
+
+    --ssh-user='root':
+        SSH user (ssh driver only)
+
+    --static-ip='':
+        Set a static IP for the minikube cluster, the IP must be: private, IPv4, and the last octet must be between 2
+        and 254, for example 192.168.200.200 (Docker and Podman drivers only)
+
+    --subnet='':
+        Subnet to be used on kic cluster. If left empty, minikube will choose subnet address, beginning from
+        192.168.49.0. (docker and podman driver only)
+
+    --trace='':
+        Send trace events. Options include: [gcp]
+
+    --uuid='':
+        Provide VM UUID to restore MAC address (hyperkit driver only)
+
+    --vm=false:
+        Filter to use only VM Drivers
+
+    --vm-driver='':
+        DEPRECATED, use `driver` instead.
+
+    --wait=[apiserver,system_pods]:
+        comma separated list of Kubernetes components to verify and wait for after starting a cluster. defaults to
+        "apiserver,system_pods", available options: "apiserver,system_pods,default_sa,apps_running,node_ready,kubelet"
+        . other acceptable values are 'all' or 'none', 'true' and 'false'
+
+    --wait-timeout=6m0s:
+        max time to wait per Kubernetes or host to be healthy.
+
+Usage:
+  minikube start [flags] [options]
+
+Use "minikube options" for a list of global command-line options (applies to all commands).
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo minikube start --driver=podman  --extra-config=kubeadm.ignore-preflight-errors=NumCPU
+sudo: minikube: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ sudo minikube start --driver=podman  --extra-config=kubeadm.ignore-preflight-errors=NumCPU
+sudo: minikube: command not found
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ minikube start --driver=podman  --extra-config=kubeadm.ignore-preflight-errors=NumCPU
+* minikube v1.31.2 on Amazon 2 (xen/amd64)
+* Using the podman driver based on user configuration
+
+* Exiting due to PROVIDER_PODMAN_NOT_FOUND: The 'podman' provider was not found: exec: "podman": executable file not found in $PATH
+* Suggestion: Install Podman
+* Documentation: https://minikube.sigs.k8s.io/docs/drivers/podman/
+
+(.devops) voclabs:~/environment/DevOps_Microservices/project-ml-microservice-kubernetes (master) $ 
+
+
